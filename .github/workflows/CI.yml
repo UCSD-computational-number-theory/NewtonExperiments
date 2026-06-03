@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        version:
+          - "1.12"
+        os:
+          - ubuntu-latest
+          - macos-latest
+        arch:
+          - x64
+
+    permissions:
+      actions: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+
+      - uses: julia-actions/cache@v2
+
+      - name: Clone and develop local dependencies
+        shell: bash
+        run: |
+          julia --project=. scripts/setup_deps.jl
+
+      - uses: julia-actions/julia-runtest@v1
