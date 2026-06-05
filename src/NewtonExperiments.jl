@@ -24,6 +24,7 @@ export all_tuples_of_length, cpu_vector_fast_symmetric
 export gpu_random_hypersurface_experiment, gpu_random_cubic_fourfold_experiment
 export data_fermat_curves, data_fermat_deform_6
 export run_experiment, run_supabase_pipeline
+export random_six_term_surface, time_zeta_depthfirst
 
 include("Supabase.jl")
 include("Results.jl")
@@ -31,6 +32,7 @@ include("CubicFourfolds.jl")
 include("CPUExperiments.jl")
 include("GPUExperiments.jl")
 include("ZetaData.jl")
+include("SixTermSurfaces.jl")
 include("Pipeline.jl")
 
 end
