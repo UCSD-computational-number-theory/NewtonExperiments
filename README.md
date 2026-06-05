@@ -10,7 +10,15 @@ This repository contains experiment scripts for computing zeta functions and New
 
 #### Installing for the first time
 
-First, install Julia 1.12. If you're new to Julia, you can find a tutorial for non-experts [here](https://jjgarzella.github.io/blog/how-to-install-julia/). If you'd like to use CUDA, you'll need to install the CUDA driver, see [the instructions in the CUDA.jl docs](https://cuda.juliagpu.org/stable/installation/overview/).
+First, install Julia 1.12 and Oscar. If you're new to Julia and Oscar, you can find a tutorial for non-experts [here](https://jjgarzella.github.io/blog/how-to-install-julia/). In short:
+
+* On Windows, install Ubuntu through WSL and use the Ubuntu terminal.
+* On Mac, open Terminal and run `xcode-select --install`.
+* On Linux, open your usual terminal.
+
+Then install Julia with `curl -fsSL https://install.julialang.org | sh`, restart your terminal if necessary, open a Julia REPL with `julia`, press `]` to enter package mode, and run `add Oscar`. Press backspace to return to the Julia prompt and check that `using Oscar` works.
+
+If you'd like to use CUDA, you'll need to install the CUDA driver, see [the instructions in the CUDA.jl docs](https://cuda.juliagpu.org/stable/installation/overview/).
 
 You should have CUDA and Julia installed, and you should have `GPUFiniteFieldMatrices.jl`, `DeRham.jl`, and this repository cloned next to one another:
 
