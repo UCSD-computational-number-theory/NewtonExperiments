@@ -2,6 +2,7 @@ using Test
 using DataFrames
 using DeRham
 using NewtonExperiments
+using Oscar
 using Random
 
 struct FakeNewtonPolygon
@@ -54,5 +55,23 @@ end
         df = run_experiment(:cpu_vector_fast_random, 3, 3, 5, 1)
         @test df isa DataFrame
         @test names(df) == names(empty_results_dataframe())
+    end
+
+    @testset "Six-term surface timing" begin
+        # Cubic surface in P^3 (code n = 4) over F_7, six distinct terms.
+        # CHK-free: only exercises the generator and our depth-first zeta path.
+        Random.seed!(20260605)
+        f = random_six_term_surface(4, 3, 7)
+
+        @test length(f) == 6
+        @test total_degree(f) == 3
+        @test DeRham.issmooth_linalg(f)
+
+        # Full zeta under the depth-first policy. S = derham_S(4, 3) == [0, 1, 2]
+        # is the canonical S the repo uses for these reductions; the default
+        # S = [0,1,2,3] would exceed d = 3 and error. (See time_zeta_depthfirst.)
+        z = DeRham.zeta_function(f; S=derham_S(4, 3), algorithm=:depthfirst, fastevaluation=true)
+        @test z !== nothing
+        @test z != false
     end
 end

@@ -1,0 +1,3 @@
+[submodule "comparisons/MathResearch.jl"]
+	path = comparisons/MathResearch.jl
+	url = https://github.com/jjgarzella/MathResearch.jl.git
